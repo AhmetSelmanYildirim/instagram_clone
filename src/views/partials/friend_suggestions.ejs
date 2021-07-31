@@ -1,0 +1,28 @@
+<div class="column has-text-weight-bold"  >
+
+    <% for(let index=0 ; index<notFollowingUserNames.length;index++){%>
+
+    <div class="timeline-post mb-6 is-small" style=" display: flex; align-items: center">
+        <img src="" alt=""> <%- notFollowingUserNames[index] %> <div class="button is-small ml-4" > <a class="add-friend" username="<%- notFollowingUserNames[index] %>"> Follow</a></div>
+    </div>
+
+    <% }%>
+
+</div>
+
+<script type="text/javascript">
+
+
+    $(".add-friend").click( function() {
+
+        let friendUsername = $(this).attr("username")
+
+        xhr.open("POST", "/manage/add-friend");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("friendUsername="+friendUsername);
+        setTimeout(function () {
+            location.reload()
+        },1000)
+
+    } );
+</script>

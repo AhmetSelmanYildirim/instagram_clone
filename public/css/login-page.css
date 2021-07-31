@@ -1,0 +1,76 @@
+body{
+
+    background: #FAFAFA;
+}
+.timeline-post{
+    border: 1px #DBDBDB solid;
+    padding: 15px;
+}
+.bottom-border{
+    border-bottom: 1px #DBDBDB solid;
+}
+.photo{
+    width: 100%;
+    height: 400px ;
+    background: red;
+}
+.gray{
+    color :#A8A8A8;
+}
+.red{
+    color:red;
+}
+
+#message-container div{
+    background-color: #CCC;
+    padding: 5px;
+}
+
+#message-container div:nth-child(2n){
+    background-color: white;
+    padding: 5px;
+}
+
+.hamburger{
+    background-color: transparent;
+    border: 0px;
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
+    display: none;
+}
+
+.hamburger:focus{
+    outline: none;
+}
+
+.nav-ul{
+    display: none;
+}
+
+nav {
+    flex-wrap: wrap !important;
+}
+
+@media screen and (max-width: 1024px){
+
+    .hamburger{
+        display: inline-block;
+        float: right;
+        margin-top: -8%;
+    }
+
+    .nav-ul{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-ul.show{
+        display: flex;
+    }
+
+
+}

@@ -1,0 +1,96 @@
+
+<div class="column is-5 is-offset-2 mt-5 has-background-white" style="height: 650px">
+    <img src="/uploads/photos/<%- folder%>/photo-<%- file%>"
+         width="100%"  style="object-fit: contain; object-position: top; height:600px" >
+</div>
+
+<div class="column is-3 mt-5 has-background-white" style="height: 650px; ">
+    <div style="overflow: scroll; height: 450px">
+    <div class="block has-text-weight-bold " style="display: flex;  align-items: center">
+
+    <span class="mr-2" style="margin-bottom: -1%"><img src="/uploads/avatars/av-<%- email%>.png"
+                                                       width="40" alt="avatar" style="border-radius: 50%"></span>
+        <span class="username-field"> <%- username%> </span>
+    </div>
+    <div class="block bottom-border "></div>
+
+
+    <% for(let index=0 ; index<sortedComments.length;index++){%>
+        <% let date = sortedComments[index].timestamp %>
+        <% let elapsedMilliseconds = new Date().getTime() - date %>
+        <% let elapsedMinutes = Math.floor(elapsedMilliseconds /60000) %>
+        <% let elapsedHours = Math.floor(elapsedMinutes /60) %>
+        <% let elapsedDays = Math.floor(elapsedHours /24) %>
+
+    <div class="mb-3 " style="display: flex;  align-items: center; margin-top:-10px" >
+        <p class="mr-2" style="margin-bottom: -1%; width: 15%" ><img src="/uploads/avatars/av-<%- sortedComments[index].email %>.png"   alt="avatar" style="border-radius: 50%;"></p>
+        <% if(!sortedComments[index].username) {%>
+            <p style="display: inline-block; width: 85%;"> <strong><%- sortedComments[index].email %></strong> <%- sortedComments[index].commentText %></p>
+        <%} else{%>
+        <p style="display: inline-block; width: 85%;"> <strong><%- sortedComments[index].username %></strong> <%- sortedComments[index].commentText %></p>
+        <%}%>
+
+    </div>
+        <% if (elapsedMinutes<60){ %>
+            <p class="block gray" style="margin-left:18%"> <%-  elapsedMinutes  %> m </p>
+
+        <% }else if (elapsedMinutes >= 60 && elapsedHours <24){ %>
+            <p class="block gray" style="margin-left:18%"> <%-  elapsedHours  %> h </p>
+
+        <% }else if (elapsedHours >= 24){ %>
+            <p class="block gray" style="margin-left:18%"> <%-  elapsedDays  %> d </p>
+        <% } %>
+    <%}%>
+    </div>
+
+
+
+    <!-- Likes -->
+
+    <div class="block mt-5" style="position: relative;">
+    <div class="block bottom-border "></div>
+
+        <span><a class="like-btn" username="<%- username %>" photoID="<%- photoID %>"  > <i class="far fa-heart fa-lg mr-3" ></i></a></span><br>
+        <span class="has-text-weight-semibold like-count" > <%- likeCount %> </span> <span class="has-text-weight-semibold">likes</span>
+
+
+    <div class="block bottom-border mt-4"></div>
+
+        <!-- Comments -->
+        <form action="/manage/comment" method="post">
+            <input type="text" name="photoID"  value="<%- photoID %>" style="display: none">
+            <input class="input" name="commentText" style="width: 83%" placeholder="add a comment">
+            <button class="button" type="submit" style="width: 15%">
+                send
+            </button>
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+<script type="text/javascript">
+
+    const xhr = new XMLHttpRequest();
+
+    $(".like-btn").click(function(){
+
+        let selectedPhotoUserName = $(this).attr("username")
+        let selectedPhotoID = $(this).attr("photoID")
+
+        xhr.open("POST", "/manage/homepage");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("photoUploaderUsername="+selectedPhotoUserName+"&photoID="+selectedPhotoID);
+        setTimeout(function () {
+            location.reload()
+        },500)
+
+    });
+
+
+</script>

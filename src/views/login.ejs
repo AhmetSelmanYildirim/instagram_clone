@@ -1,0 +1,47 @@
+
+<div class="columns ">
+    <div class="column  ">
+        <img src="./img/login-page-image.png" width="460" height="730">
+    </div>
+    <div class="column ">
+        <div class="block has-text-centered has-background-white p-3 box">
+            <div><h1> <strong>This website is an clone of Instagram for studying <br> Please do not enter your real Instagram informations.</strong></h1></div>
+            <div class="block"><img src="./img/instagram-logo.png" width="220" height="70"></div>
+            <div class="block">
+            <% if (locals.validation_error != undefined || locals.success_message != undefined || locals.login_error != undefined) { %>
+                <%- include('./partials/_mesaj.ejs')  %>
+            <% } %>
+            </div>
+            <div class="block pl-3 pr-3 ">
+                <form action="/login" method="post">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input mb-2" name="email" type="email" placeholder="Email" value="<%= typeof email != 'undefined' ? email : '' %>">
+                        </div>
+                        <div class="control">
+                        <input class="input mb-2" name="password" type="password" placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>">
+                        </div>
+                        <div class="block has-text-centered  ">
+                            <button class="button is-info is-fullwidth" type="submit">
+                                Log In
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="block ">
+                <a href="/forgot-password" class=" "> Forgot password?</a>
+            </div>
+        </div>
+
+
+
+        <div class="block has-text-centered has-background-white p-3 box">
+            Don't have an account? <a href="/register" > Sign up </a>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="block p-6"> </div>

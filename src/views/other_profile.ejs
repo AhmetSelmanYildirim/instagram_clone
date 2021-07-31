@@ -1,0 +1,98 @@
+<div>
+    <div class="column is-offset-3 mr-3">
+
+        <div class="columns is-gapless has-text-centered-mobile">
+            <div class="column is-3 mt-3">
+                <img src="/uploads/avatars/av-<%- user.avatar %>" width="200" height="200"
+                     style="border-radius: 50%;">
+            </div>
+            <div class="column is-6">
+                <% if(isFollowing){ %>
+                <div class="subtitle"><%- user.username %>
+                    <div class="button is-small ml-4"><a class="remove-friend" username="<%- user.username %>">
+                            Unfollow</a></div>
+                    <% }else{ %>
+                    <div class="subtitle"><%- user.username %>
+                        <div class="button is-small ml-4"><a class="add-friend" username="<%- user.username %>">
+                                Follow</a></div>
+                        <% } %>
+
+                        <div class="button is-small ml-4"><a class="messageTo" username="<%- user.username %>">
+                                Message</a>
+                        </div>
+                    </div>
+
+                    <div class="columns is-gapless">
+                        <div class="column is-3"><strong><%- photos.length %></strong> posts</div>
+                        <div class="column is-3"><strong><%- user.followers.length %></strong> followers</div>
+                        <div class="column is-3"><strong><%- user.following.length %></strong> following</div>
+                    </div>
+                    <div class="subtitle has-text-weight-bold is-capitalized pt-5"><%- user.fullname %> </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="block" style="width: 1500px"></div>
+        <div class="column is-offset-2 is-8  ">
+            <div class="columns is-multiline is-12-mobile has-text-centered-mobile">
+
+                <% for( let index = 0; index < photos.length; index++ ) { %>
+                    <div class="column is-4-desktop" style="height: 350px"><img
+                                src="/uploads/photos/<%- user.email %>/<%- photos[index] %>"
+                                style="height: 300px; object-fit: cover;object-position: center"></div>
+                <% } %>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    const xhr = new XMLHttpRequest();
+
+    $('.add-friend').click(function (e) {
+
+        let friendUsername = $(this).attr("username")
+
+        xhr.open("POST", "/manage/add-friend");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("friendUsername=" + friendUsername);
+        setTimeout(function () {
+            location.reload()
+        }, 500)
+
+    });
+
+    $('.remove-friend').click(function (e) {
+
+        let friendUsername = $(this).attr("username")
+
+        xhr.open("POST", "/manage/remove-friend");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("friendUsername=" + friendUsername);
+        setTimeout(function () {
+            location.reload()
+        }, 500)
+
+    });
+
+    $('.messageTo').click(function(e){
+        let username = $(this).attr("username")
+
+        xhr.open("POST", "/manage/messages");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("messageTo=" + username);
+        setTimeout(function(){
+            window.location.href = "/manage/messages"
+        },1000)
+    })
+
+</script>
+
+
+

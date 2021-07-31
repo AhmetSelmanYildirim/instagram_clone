@@ -1,0 +1,37 @@
+<div class="column is-offset-4 mr-3">
+    <form action="upload-photo" method="post" enctype="multipart/form-data">
+
+            <div class="column is-6">
+                <div class="title has-text-centered">Photo Upload</div>
+                <% if (locals.validation_error != undefined || locals.success_message != undefined || locals.login_error != undefined) { %>
+                    <%- include('./partials/_mesaj.ejs')  %>
+                <% } %>
+                <div class="column ">
+                    <div class="field">
+                        <div class="block">
+                        <div class="control " >
+                            <input class="input"  name="photo" type="file" placeholder="Description" value="">
+                        </div>
+                        </div>
+
+                        <div class="block">
+                        <div class="control ">
+                            <input class="input" name="description" type="text" placeholder="Description" value="">
+                        </div>
+                        </div>
+                        <div class="block">
+                        <div class="block has-text-centered  ">
+                            <button class="button is-info is-fullwidth" type="submit">
+                                Upload
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+    </form>
+
+</div>

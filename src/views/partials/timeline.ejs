@@ -1,0 +1,114 @@
+
+<% for(let index=0 ; index<sortedPhotos.length;index++){%>
+<% let date = sortedPhotos[index].time %>
+<% let elapsedMilliseconds = Math.floor(new Date().getTime()) - date %>
+<% let elapsedSeconds = Math.floor(elapsedMilliseconds /1000) %>
+<% let elapsedMinutes = Math.floor(elapsedSeconds /60) %>
+<% let elapsedHours = Math.floor(elapsedMinutes /60) %>
+<% let elapsedDays = Math.floor(elapsedHours /24) %>
+
+
+
+
+<div class="timeline-post mb-6" >
+
+<div class="block has-text-weight-bold " style="display: flex;  align-items: center">
+
+    <% if (user.username !=sortedPhotos[index].username) {%>
+    <!-- avatar & username -->
+    <a class="user-btn" user="<%- sortedPhotos[index].username%>" style="color:#000">
+        <span class="mr-2" style="margin-bottom: -1%" >
+            <img src="/uploads/avatars/av-<%- sortedPhotos[index].email %>.jpg" width="40" alt="avatar" style="border-radius: 50%">
+        </span>
+    </a>
+    <a class="user-btn" user="<%- sortedPhotos[index].username%>" style="color:#000">
+    <span class="username-field"><%- sortedPhotos[index].username%></span>
+    </a>
+    <% } else{ %>
+
+        <span class="mr-2" style="margin-bottom: -1%" >
+            <img src="/uploads/avatars/av-<%- sortedPhotos[index].email %>.jpg" width="40" alt="avatar" style="border-radius: 50%">
+        </span>
+
+        <span class="username-field"><%- sortedPhotos[index].username%></span>
+    <% } %>
+
+
+</div>
+    <div class="block bottom-border "></div>
+
+    <!-- photo -->
+    <div class="block has-text-centered"> <a class="comment-btn" photoID="<%- sortedPhotos[index].id%>"><img class="photo-class" src="/uploads/photos/<%- sortedPhotos[index].email%>/photo-<%- sortedPhotos[index].name%>" width="700" alt="<%- sortedPhotos[index].id %>"> </a></div>
+
+    <!-- like & comment -->
+    <div class="block">
+
+        <span><a class="like-btn"  username="<%- sortedPhotos[index].username%>" photoID="<%- sortedPhotos[index].id%>"> <i class="far fa-heart fa-lg mr-3" ></i></a></span>
+
+        <span><a class="comment-btn" photoID="<%- sortedPhotos[index].id%>"><i class="far fa-comment fa-lg"></i></a></span>
+
+    </div>
+
+    <!-- like count -->
+    <span class="has-text-weight-semibold like-count" > <%- sortedPhotos[index].like%> </span><span class="has-text-weight-semibold">likes</span>
+
+    <!-- username & description -->
+    <div class="block mt-3"> <strong><%- sortedPhotos[index].username%></strong> <%- sortedPhotos[index].description%> </div>
+
+    <!-- elapsed time -->
+    <% if (elapsedSeconds<60){ %>
+        <div class="block gray" > <%-  elapsedSeconds  %> s </div>
+    <% }else if (elapsedMinutes >= 1 && elapsedMinutes<60){ %>
+        <div class="block gray" > <%-  elapsedMinutes  %> m </div>
+
+    <% }else if (elapsedMinutes >= 60 && elapsedHours <24){ %>
+        <div class="block gray" > <%-  elapsedHours  %> h </div>
+
+    <% }else if (elapsedHours >= 24){ %>
+        <div class="block gray" > <%-  elapsedDays  %> d </div>
+    <% } %>
+
+    <!-- add comment -->
+<form action="/manage/comment" method="post">
+    <input type="text" name="photoID" value="<%- sortedPhotos[index].id%>" style="display: none">
+    <input class="input" name="commentText" style="width: 89%" placeholder="add a comment">
+    <button class="button" type="submit" style="width: 10%">
+        send
+    </button>
+</form>
+
+
+
+</div>
+<% } %>
+<script type="text/javascript">
+
+
+    const xhr = new XMLHttpRequest();
+
+    $(".like-btn").click(function(){
+
+        let selectedPhotoUserName = $(this).attr("username")
+        let selectedPhotoID = $(this).attr("photoID")
+
+        xhr.open("POST", "/manage/homepage");
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("photoUploaderUsername="+selectedPhotoUserName+"&photoID="+selectedPhotoID);
+        setTimeout(function () {
+            location.reload()
+        },500)
+    });
+
+    $(".comment-btn").click(function(){
+
+        let selectedPhotoID = $(this).attr("photoID")
+        window.location.replace("/manage/p/"+selectedPhotoID);
+    });
+
+    $(".user-btn").click(function(){
+
+        let userNameBtn = $(this).attr("user")
+        window.location.replace("profile/"+userNameBtn);
+    });
+
+</script>

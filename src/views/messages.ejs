@@ -1,0 +1,49 @@
+<div class="column is-offset-1 is-3" id="users">
+    <p id="myUsername" username="<%-user.username%>"></p>
+
+
+<!--    Users    -->
+    <div class="title"> Users</div>
+
+<% for(let a = 0; a<messagers.length;a++) {%>
+    <div id="users-column" class="block" style="display: flex;  align-items: center">
+
+        <img src="/uploads/avatars/av-<%- messagers[a].email %>.jpg" width="50" height="50" style="border-radius: 50%;">
+        <strong class="pl- users-name" onclick="onUserSelected(this.innerHTML)"><%- messagers[a].username%></strong>
+
+    </div>
+<%}%>
+
+
+</div>
+<div class="column is-6">
+
+    <div class="title" > Messages</div>
+
+
+<!--    Messages    -->
+    <div id="message-container" style="width: 100%; height: 500px; background: whitesmoke; overflow-y:auto; border: 1px solid black" >
+
+    </div>
+
+    <div style="width: 100%; height: 50px;">
+
+        <form id="message-form">
+            <input class="input" type="text" id="message-input" name="message-input" style="width: 89%" placeholder="message">
+            <button class="button" id="send-button" type="submit" style="width: 10%">
+                send
+            </button>
+        </form>
+
+
+    </div>
+
+
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" ></script>
+<script src="/socket.io/socket.io.js"> </script>
+<script src="/js/client.js"></script>
+

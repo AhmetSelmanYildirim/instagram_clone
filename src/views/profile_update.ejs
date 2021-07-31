@@ -1,0 +1,31 @@
+<div class="column is-offset-4 mr-3">
+    <form action="update-profile" method="post" enctype="multipart/form-data">
+        <div class="columns is-gapless has-text-centered-mobile">
+
+            <div class="column is-5 has-text-centered">
+                <img src="/uploads/avatars/av-<%- user.avatar %>" width="200" height="200" style="border-radius: 50%">
+<br>
+                <input class="button" type="file" name="avatar">
+                <p class="has-text-weight-light">please upload .jpg </p>
+
+<div class="block"></div>
+                <div class="subtitle"><%- user.username %></div>
+                <div class="column">
+
+                    <div class="field">
+
+                        <div class="block"></div>
+                        <div class="block has-text-centered  ">
+                            <button class="button is-info is-normal" type="submit">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
